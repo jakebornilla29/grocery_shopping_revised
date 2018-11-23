@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: asamad
- * Date: 7/5/17
- * Time: 5:08 PM
- */
-
 class Checkout extends CI_Controller
 {
     function index(){
