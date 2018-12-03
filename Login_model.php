@@ -1,11 +1,28 @@
 <?php
 class Login_model extends CI_Model
 {
-    function checkUser($login,$password){
-        $query = $this->db->select()
-        				  ->where(['email'=> $login , 'password'=> $password])
-        				  ->or_where(['username'=> $login , 'password'=> $password])
-        				  ->get('users');
+    function checkUser($username,$password){
+         $query = $this->db->get_where('users',array('username'=> $username , 'password'=> $password));
         return $query->result();
     }
+    function checkEmail($email)
+    {
+    	$query = $this->db->get_where('users',array('email'=>$email));
+    		$row = $query->row();
+    		return $row;
+    }
+
+   function insertToken($user_id)
+   {
+   	$token = substr(sha1(rand()), 0, 30);
+   	$date = date('m/d/y');
+
+   	$string = array('token' =>$token ,
+   					'user_id' =>$user_id ,
+   					'created' =>$date );
+
+   	$query = $this->db->insert('tokens',$string);
+   					//->\query($query);
+   					return $token . $user_id;
+   }
 }
